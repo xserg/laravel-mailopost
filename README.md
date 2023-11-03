@@ -26,10 +26,6 @@ composer global require xserg/laravel-mailopost
 
 ## Usage
 
-
-
-### Installation
-
 Register the service provider:
 
 In config/app.php:
