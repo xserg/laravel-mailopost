@@ -1,0 +1,19 @@
+{
+    "name": "xserg/laravel-mailopost",
+    "description": "Mail driver for mailopost.ru service",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "Xserg\\LaravelMailopost\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "xserg",
+            "email": "xxserg@gmail.com"
+        }
+    ],
+    "require": {
+        "guzzlehttp/guzzle": "^7.0.1"
+    }
+}
