@@ -68,7 +68,9 @@ In config/mail.php, under mailers, you need to add a new entry:
 ### Create Mailiable class
 
 In App/Mail create something like SendRegisterEmail
-``php
+
+```php
+
 public function build()
 {
     return $this->view('emails.auth.register')->subject('Registration details')->with([
