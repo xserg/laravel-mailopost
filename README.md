@@ -34,6 +34,7 @@ Register the service provider:
 
 In config/app.php:
 
+```php
 'providers' => [
     ...
     // Illuminate\Mail\MailServiceProvider::class,
@@ -47,5 +48,6 @@ In config/mail.php, under mailers, you need to add a new entry:
 'custom' => [
     'transport' => 'custom',
 ],
+```
 
 - [Mailopost Documentation](https://mailopost.ru/api.html)
