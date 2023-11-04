@@ -31,7 +31,7 @@ In config/app.php:
 
 
 Add a new section to config/services.php for the API's URL and authorization key,
-add url and key to .env:
+add mailer, url and key to .env:
 
 ```php
 'mailopost_mail' => [
@@ -39,6 +39,7 @@ add url and key to .env:
     'key' => env('MAILOPOST_MAIL_API_KEY')
 ],
 
+MAIL_MAILER=mailopost
 MAILOPOST_MAIL_URL="https://api.mailopost.ru"
 MAILOPOST_MAIL_API_KEY="your_key"
 ```
