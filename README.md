@@ -4,7 +4,7 @@
 
 # laravel-mailopost
 
-Mail driver for mailopost.ru
+Laravel Mail driver for mailopost.ru
 
 ## Features
 
@@ -20,9 +20,6 @@ Mail driver for mailopost.ru
 ```shell
 composer require xserg/laravel-mailopost
 ```
-```shell
-composer global require xserg/laravel-mailopost
-```
 
 ## Usage
 
@@ -33,13 +30,17 @@ In config/app.php:
 ### Service configuration
 
 
-Add a new section to config/services.php for the API's URL and authorization key:
+Add a new section to config/services.php for the API's URL and authorization key,
+add url and key to .env:
 
 ```php
 'mailopost_mail' => [
     'url' => env('MAILOPOST_MAIL_URL'),
     'key' => env('MAILOPOST_MAIL_API_KEY')
 ],
+
+MAILOPOST_MAIL_URL="https://api.mailopost.ru"
+MAILOPOST_MAIL_API_KEY="your_key"
 ```
 
 ### Register the service provider
@@ -73,7 +74,7 @@ public function envelope(): Envelope
     return new Envelope(
 
         metadata: [
-          'template_id' => 972387,
+          'template_id' => your_template_id,
           'email'     => $this->data['email'],
         ],
     );
