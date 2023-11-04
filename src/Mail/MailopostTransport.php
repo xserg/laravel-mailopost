@@ -77,21 +77,24 @@ class MailopostTransport implements TransportInterface
     protected function doSendApi(SentMessage $sentMessage, Email $email, Envelope $envelope)
     {
         $payload = $this->getPayload($email, $envelope);
-        $message_send = '/v1/email/messages';
-        $template_send = '/v1/email/templates/' . $payload['body']['params']['template_id'] . '/messages';
-        $endpoint = $this->domain . $template_send;
+
+        if (!empty($payload['body']['params']['template_id'])) {
+          $url_path = '/v1/email/templates/' . $payload['body']['params']['template_id'] . '/messages';
+        } else {
+          $url_path = '/v1/email/messages';
+        }
+        $endpoint = $this->domain . $url_path;
         $response = Http::withHeaders($payload['headers'])->post($endpoint, $payload['body']);
 
         try {
             $statusCode = $response->getStatusCode();
             $result = $response->json();
-            //print_r($result);
         } catch (TransportExceptionInterface $e) {
             throw new HttpTransportException('Could not reach the remote server.', $response, 0, $e);
         }
-        $sentMessage->setMessageId($result['id']);
+
+        $sentMessage->setMessageId($result['id'] ?? '');
         return $sentMessage;
-        //return $response;
     }
 
     protected function getPayload(Email $email, Envelope $envelope): array
@@ -103,7 +106,7 @@ class MailopostTransport implements TransportInterface
                 continue;
             }
         }
-        return [
+        $payload =  [
             'headers' => [
                 'Authorization' => 'Bearer ' . $this->key,
                 'Accept'        => 'application/json',
@@ -114,6 +117,17 @@ class MailopostTransport implements TransportInterface
                 'params' => $params,
             ],
         ];
+
+        if (empty($params['template_id'])) {
+            $payload['body'] = [
+              'from_email' => $envelope->getSender()->toString(),
+              'to' => $params['email'],
+              'subject' => $email->getSubject(),
+              'text' =>  $email->getTextBody() ?? $email->getHtmlBody(),
+              'html' =>  $email->getHtmlBody(),
+            ];
+        }
+        return $payload;
     }
 
 }

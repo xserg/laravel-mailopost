@@ -1,4 +1,4 @@
-[![Build Status](https://img.shields.io/github/actions/workflow/status/zircote/swagger-php/build.yml?branch=master)](https://github.com/zircote/swagger-php/actions?query=workflow:build)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/zircote/swagger-php/build.yml?branch=master)](https://github.com/xserg/laravel-mailopost/actions?query=workflow:build)
 [![Total Downloads](https://img.shields.io/packagist/dt/zircote/swagger-php.svg)](https://packagist.org/packages/zircote/swagger-php)
 [![License](https://img.shields.io/badge/license-Apache2.0-blue.svg)](LICENSE)
 
@@ -61,28 +61,20 @@ In config/mail.php, under mailers, you need to add a new entry:
     'transport' => 'mailopost',
 ],
 ```
-### Create Mailiable class
 
-In App/Mail create something like SendRegisterEmail
+### Send Mail
+
+Create Mailable class, with envelope method
+if template_id specified, use mailopost mail template
 
 ```php
-
-public function build()
-{
-    return $this->view('emails.auth.register')->subject('Registration details')->with([
-        'email'     => $this->data['email'],
-        'password'  => $this->data['password'],
-    ]);
-}
-
 public function envelope(): Envelope
 {
     return new Envelope(
-        subject: 'Registration details',
+
         metadata: [
           'template_id' => 972387,
           'email'     => $this->data['email'],
-          'password'  => $this->data['password'],
         ],
     );
 }
