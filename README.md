@@ -1,5 +1,4 @@
 [![Build Status](https://img.shields.io/github/actions/workflow/status/zircote/swagger-php/build.yml?branch=master)](https://github.com/xserg/laravel-mailopost/actions?query=workflow:build)
-[![Total Downloads](https://img.shields.io/packagist/dt/zircote/swagger-php.svg)](https://packagist.org/packages/zircote/swagger-php)
 [![License](https://img.shields.io/badge/license-Apache2.0-blue.svg)](LICENSE)
 
 # laravel-mailopost
